@@ -1,3 +1,6 @@
+NOT PRODUCTION READY!!!
+early commit
+
 reminder:
 
 install pip3 tools 
