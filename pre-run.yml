@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: install needed collections and roles
+    command:  "ansible-galaxy install -r requirements.yml"
+
+- hosts: mariadb, localhost
+  roles:
+    - pre-run
+
+- hosts: mariadb
+  tasks:
+  - name: create DB service account
+    community.mysql.mysql_user:
+      check_implicit_admin: yes
+      name: "{{ db_user }}"
+      host: '%'
+      password: "{{ db_password }}"
+      priv: '*.*:ALL'
+      state: present    
+
+    

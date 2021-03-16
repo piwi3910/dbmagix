@@ -1,0 +1,19 @@
+- name: Install needed packages via pip
+  pip: 
+    name: "{{ pip_packages }}"
+
+- name: install needed packages via apt
+  apt:
+    name:
+      - mariadb-client
+      - mariadb-backup
+    state: present
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: install needed packages via yum
+  package:
+    name:
+      - mariadb
+      - mariadb-backup
+    state: present  
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
